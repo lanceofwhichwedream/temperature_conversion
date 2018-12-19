@@ -1,0 +1,43 @@
+#!/usr/bin/ruby
+# By Lance Zeligman
+
+# Loading the convert library we created
+Dir['modules/*.rb'].each { |mod| load mod }
+
+# Initialize the convert module
+CONVERT = Convert.new
+# We need to intake the information from the professor
+# We do this by breaking it up into 4 questions
+p 'What is your final temperature?'
+intemp = gets.chomp.to_f
+
+p 'What is your final Unit? Please use the Symbol for the Unit (F, R, K, C)'
+target_unit = gets.chomp.downcase
+
+p 'What is the student response?'
+student_response = gets.chomp.to_f
+
+p 'What is the initial unit? Please use the Symbol for the Unit (F, R, K, C)'
+inunit = gets.chomp.downcase
+
+if target_unit == inunit
+  p 'invalid'
+  exit(1)
+end
+
+# Next load the conversion modules as we need them
+if target_unit == 'f'
+  convert_unit = CONVERT.Farenheit(student_response, inunit)
+elsif target_unit == 'c'
+  convert_unit = CONVERT.Celsius(student_response, inunit)
+elsif target_unit == 'k'
+  convert_unit = CONVERT.Kelvin(student_response, inunit)
+elsif target_unit == 'r'
+  convert_unit = CONVERT.Rankine(student_response, inunit)
+end
+
+if convert_unit.round(0) == intemp.round(0)
+  p 'correct'
+else
+  p 'incorrect'
+end
