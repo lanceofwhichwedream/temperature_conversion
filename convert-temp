@@ -2,6 +2,8 @@
 # By Lance Zeligman
 
 # Loading the convert library we created
+# Better to have these in a separate file should the application need to do more
+# in the future
 Dir['modules/*.rb'].each { |mod| load mod }
 
 # Initialize the convert module
